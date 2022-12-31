@@ -5,7 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="TodoList.css">
-    <script src="TodoList.js"></script>
+    <!--LIBRERIE FONT-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <!--// LIBRERIE FONT //-->
+
+    <!--LIBRERIE ICON-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!--// LIBRERIE ICON //-->
     <title>TodoList</title>
 
 
@@ -18,30 +26,52 @@
             <!--TSKS TABLE-->
             <div class="tasks-table">
                 <!--HEADER-->
-                <div style="width: 100%; background: rgb(88, 40, 127); text-align: center; color: white; padding-top: 8px; padding-bottom: 8px;">
+                <div style="width: 100%;height: 40px; background: rgb(88, 40, 127); text-align: center; color: white; padding-top: 8px; padding-bottom: 8px;">
                     <h1 style="display: inline;">TODO</h1>
-                    <button class="circular" style="float: right;background: white;margin-right: 10px;">add</button>
+                    <button id="add-btn" class="circular" style="float: right;background: white;margin-right: 10px;">
+                        <span class="material-symbols-outlined">
+                            add
+                        </span>
+                    </button>
                 </div>
                 <!--// HEADER //-->
                 <!--TASKS-->
-                <div class="tasks" style="padding: 20px;">
+                <div id="tasks" class="tasks" style="padding: 20px;">
                     <!--TASK-->
                     <div class="task">
                         <!--TASKs INFO-->
                         <div style="width: 70%;">
                             <h2>read book</h2>
-                            <div><span>10/10/2022</span></div>
+                            <div>
+                                <span class="material-symbols-outlined">
+                                    calendar_month
+                                </span>
+                                <span>10/10/2022</span>
+                            </div>
                         </div>
                         <!--// TASKs INFO //-->
                         <!--TASKS ACTIONS-->
                         <div style="display: flex; justify-content: space-between; align-items: center; width: 20%;">
-                            <button class="circular"  style="background-color: brown; color:white;" >D</button>
-                            <button class="circular"  style="background-color: green; color:white;" >C</button>
-                            <button class="circular"  style="background-color: blue; color:white;" >E</button>
+                            <button class="circular"  style="background-color: brown; color:white;" >
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </button>
+                            <button class="circular"  style="background-color: green; color:white;" >
+                                <span class="material-symbols-outlined">
+                                    check
+                                </span>
+                            </button>
+                            <button class="circular"  style="background-color: blue; color:white;" >
+                                <span class="material-symbols-outlined">
+                                    edit
+                                </span>
+                            </button>
                         </div>
                         <!--// TASKS ACTIONS //-->
                     </div>
                     <!-- TASK //-->
+                    
                 </div>
                 <!--// TASKS //-->
             </div>
@@ -53,4 +83,7 @@
 
 
 </body>
+<script src="TodoList.js">
+
+</script>
 </html> 
