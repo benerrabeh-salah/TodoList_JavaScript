@@ -1,38 +1,53 @@
 
     let tasks = [
         {
-            "tatle":"read book1",
+            "title":"read book1",
             "date":"10/10/2022",
             "isDone": false
         },
         {
-            "tatle":"read book2",
+            "title":"read book2",
             "date":"10/10/2022",
             "isDone": false
         },
         {
-            "tatle":"read book3",
+            "title":"read book3",
             "date":"10/10/2022",
-            "isDone": false
+            "isDone": true
         },
         {
-            "tatle":"read book4",
+            "title":"read book4",
             "date":"10/10/2022",
             "isDone": false
         }
     ]
 
-    function fillTask(){
-       document.getElementById("tasks").innerHTML = ""
+    function getTasksFormStorage(){
+        let retrievedTasks = JSON.parse(localStorage.getItem("tasks"))
+        if(retrievedTasks == null){
+            tasks = []
+        }else{
+            tasks = retrievedTasks
+        }
+        // ==================== autre methode =======================
+        //  tasks = retrievedTasks ?? []
 
+    }
+    getTasksFormStorage()
+
+    
+
+    function fillTask(){
+        document.getElementById("tasks").innerHTML = ""
+        let index = 0 
         for(task of tasks)
         {
             let content = ` 
             <!--TASK-->
-            <div class="task">
+            <div class="task ${task.isDone ? "done" : ""}">
                 <!--TASKs INFO-->
                 <div style="width: 70%;">
-                    <h2>${task.tatle}</h2>
+                    <h2>${task.title}</h2>
                     <div>
                         <span class="material-symbols-outlined">
                             calendar_month
@@ -43,17 +58,26 @@
                 <!--// TASKs INFO //-->
                 <!--TASKS ACTIONS-->
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 20%;">
-                    <button class="circular"  style="background-color: brown; color:white;" >
+                    <button onclick="deleteTask(${index})" class="circular"  style="background-color: brown; color:white;" >
                         <span class="material-symbols-outlined">
                             delete
                         </span>
                     </button>
-                    <button class="circular"  style="background-color: green; color:white;" >
+                    ${task.isDone ? `
+                    <button onclick="toggelTaskCompletion(${index})" class="circular"  style="background-color: rgb(118, 0, 101);; color:white;" >
+                        <span class="material-symbols-outlined">
+                            cancel
+                        </span>
+                    </button>
+                    ` : `
+                    <button onclick="toggelTaskCompletion(${index})" class="circular"  style="background-color: green; color:white;" >
                         <span class="material-symbols-outlined">
                             check
                         </span>
                     </button>
-                    <button class="circular"  style="background-color: blue; color:white;" >
+                    `}
+                    
+                    <button onclick="editTask(${index})" class="circular"  style="background-color: blue; color:white;" >
                         <span class="material-symbols-outlined">
                             edit
                         </span>
@@ -64,25 +88,65 @@
             <!-- TASK //-->
         `
         document.getElementById("tasks").innerHTML += content
-
+        index++
         }
     }
 
     fillTask()
 
     document.getElementById("add-btn").addEventListener("click",function(){
-        let taskName = prompt("Add Task")
+        let taskTitle = prompt("Add Task")
         let now = new Date()
         let date = now.getDate() + "/" + (now.getMonth()+1) +"/"+ now.getFullYear() +" | "+now.getHours() +":"+now.getMinutes()
-        if(taskName)
+        if(taskTitle)
         {
             let taskObj = {
-                "tatle":taskName,
+                "title":taskTitle,
                 "date":date,
                 "isDone": false
             }
             tasks.push(taskObj)
+            storeTasks()
             fillTask()
         }
      }) 
+
+
+     function deleteTask(index){
+        let task = tasks[index]
+        let isConfirmed = confirm("do you want delete this task : " + task.title)
+        if(isConfirmed){
+            tasks.splice(index, 1)
+            storeTasks()
+            fillTask()
+        }
+     }
+
+     function editTask(index){
+        let task = tasks[index]
+        let newTaskTitle = prompt("do you want edit this task ",task.title)
+        if(newTaskTitle)
+        {
+            task.title = newTaskTitle
+            storeTasks()
+            fillTask()
+        }
+
+     }
+
+     function toggelTaskCompletion(index){
+        let task = tasks[index]
+        task.isDone = !task.isDone
+
+        storeTasks()    
+        fillTask()
+     }
    
+
+     // ================ Store Tasks ====================//
+     function storeTasks(){
+        let tasksString = JSON.stringify(tasks)
+        localStorage.setItem("tasks",tasksString)
+     }
+
+     // ================// Store Tasks //====================//
